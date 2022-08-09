@@ -1,0 +1,36 @@
+<div class="row">
+    <input type="text" class="form-control" placeholder="Search Products" [(ngModel)]="pText" />
+</div>
+
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Avaiable</th>
+                <th>Color</th>
+                <th>Dist</th>
+                <th>Actions</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of products | productSearch:pText">
+               <td>{{p.Id}}</td>
+               <td>{{p.Title | uppercase}}</td>
+               <td>{{p.Price | currency}}</td>
+               <td>{{p.inStock}}</td>
+               <td>{{p.Color}}</td>
+               <td>{{p.Agency}}</td>
+               <td>
+                <input type="text" placeholder="enter quantity"/>
+                <button class="btn btn-success">Buy</button>
+            </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
