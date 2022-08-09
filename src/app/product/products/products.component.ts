@@ -11,71 +11,104 @@ export class ProductsComponent implements OnInit,  OnDestroy {
 
   products! : IProduct[];
   pText = "";
- 
-  constructor() { 
-   
+  imageButtonTitle = "Hide";
+  showImage = true;
+  buyMessage = "";
+
+  constructor() {
+
   }
   ngOnInit(): void {
-    this.products = this.getProducts(); 
+    this.products = this.getProducts();
     console.log(this.products);
-   
+
   }
- 
+
+  onBuyClick(p: IProduct) {
+    this.buyMessage = "You have bought " + p.Title + " quantity "+ p.BuyQuantity+" for total value of: $"+ p.Price * p.BuyQuantity;
+    p.Quantity = p.Quantity - p.BuyQuantity;
+    p.BuyQuantity = 0;
+  }
+
+
+  toggleImage() {
+    this.showImage = !this.showImage;
+    if (this.showImage) {
+      this.imageButtonTitle = 'Hide';
+    } else {
+      this.imageButtonTitle = 'Show';
+    }
+  }
+  ngOnDestroy(): void {
+    console.log("ProductsComponent destroyed");
+  }
+
   getProducts(): IProduct[] {
 
     return [
       {
         Id:"1",
         Title:"Pen",
-        Price: 200, 
+        Price: 200,
         Color : "Red",
         inStock: true,
-        Agency:"Abc"
+        Quantity: 20,
+        Agency:"Abc",
+        Image:"assets/1-pen-png-image.png",
+        BuyQuantity:0
       },
       {
         Id:"2",
         Title:"Pencil",
-        Price: 100, 
+        Price: 100,
         Color : "Blue",
         inStock: false,
-        Agency:"Xyz"
+        Quantity: 200,
+        Agency:"Xyz",
+        Image:"assets/12-pencil-png-image.png",
+        BuyQuantity:0
       },
       {
         Id:"3",
         Title:"Book",
-        Price: 2000, 
+        Price: 2000,
         Color : "White",
         inStock: true,
-        Agency:"Abc"
+        Quantity: 300,
+        Agency:"Abc",
+        Image:"assets/5-2-book-png-6.png",
+        BuyQuantity:0
       },
       {
         Id:"4",
         Title:"Bat",
-        Price: 1200, 
+        Price: 1200,
         Color : "Black",
         inStock: false,
-        Agency:"Abc"
+        Quantity: 400,
+        Agency:"Abc",
+        Image:"assets/89947-bat-baseball-line-batting-free-hd-image.png",
+        BuyQuantity:0
       },
       {
         Id:"5",
         Title:"Ball",
-        Price: 200, 
+        Price: 200,
         Color : "Blue",
         inStock: false,
-        Agency:"Xyz"
+        Quantity: 500,
+        Agency:"Xyz",
+        Image:"assets/2-2-basketball-png-file_400x400.png",
+        BuyQuantity:0
       }
-
     ]
-
   }
 
-  ngOnDestroy(): void {
-    
-  }
+
 }
 
 
-// pipe ia function 
-// trafsomr an input to output 
+// pipe ia function
+// trafsomr an input to output
 
-// without chnaging the underlyiing structute of the input 
+// without chnaging the underlyiing structute of the input

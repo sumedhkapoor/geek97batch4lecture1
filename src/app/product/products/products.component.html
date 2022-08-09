@@ -1,36 +1,60 @@
 <div class="row">
-    <input type="text" class="form-control" placeholder="Search Products" [(ngModel)]="pText" />
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Search Products"
+    [(ngModel)]="pText"
+  />
 </div>
 
 <div class="row">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Avaiable</th>
-                <th>Color</th>
-                <th>Dist</th>
-                <th>Actions</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let p of products | productSearch:pText">
-               <td>{{p.Id}}</td>
-               <td>{{p.Title | uppercase}}</td>
-               <td>{{p.Price | currency}}</td>
-               <td>{{p.inStock}}</td>
-               <td>{{p.Color}}</td>
-               <td>{{p.Agency}}</td>
-               <td>
-                <input type="text" placeholder="enter quantity"/>
-                <button class="btn btn-success">Buy</button>
-            </td>
-            </tr>
-
-        </tbody>
-    </table>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>
+          Image
+          <button (click)="toggleImage()" class="btn btn-success">
+            {{ imageButtonTitle }}
+          </button>
+        </th>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Avaiable</th>
+        <th>Quantity</th>
+        <th>Color</th>
+        <th>Dist</th>
+        <th>Buy Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of products | productSearch: pText">
+        <td>{{ p.Id }}</td>
+        <td>
+          <img *ngIf="showImage" src="{{ p.Image }}" width="100" height="100" />
+        </td>
+        <td>{{ p.Title | uppercase }}</td>
+        <td>{{ p.Price | currency }}</td>
+        <td>{{ p.inStock }}</td>
+        <td>{{ p.Quantity }}</td>
+        <td>{{ p.Color }}</td>
+        <td>{{ p.Agency }}</td>
+        <td>
+          <input
+            type="text"
+            [(ngModel)]="p.BuyQuantity"
+            placeholder="enter quantity"
+          />
+          <button
+            *ngIf="p.Quantity >= 50"
+            (click)="onBuyClick(p)"
+            class="btn btn-success"
+          >
+            Buy
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h1>{{ buyMessage }}</h1>
 </div>
-
